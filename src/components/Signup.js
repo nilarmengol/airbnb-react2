@@ -19,8 +19,14 @@ class Signup extends React.Component {
   };
 
   signup = e => {
-    e.preventDefault();
-    console.log("hello");
+  e.preventDefault();
+		if (
+			this.state.user.name !== "" &&
+			this.state.user.email !== "" &&
+			this.state.user.password !== "" &&
+			this.state.user.location !== "" )
+			{
+
     axios
       .post(`${process.env.REACT_APP_API}/signup`, this.state.user)
       .then(res => {
@@ -33,6 +39,7 @@ class Signup extends React.Component {
       .catch(err => {
         console.log("err", err);
       });
+		}
   };
 
   // signup method that sends the data typed in the signup form to the /signu
@@ -58,6 +65,7 @@ class Signup extends React.Component {
 
             </div>
             <form onSubmit={this.signup}
+						disabled={!this.state.user.name}
 						>
               <div className="group">
                 <label> Name </label>
@@ -94,17 +102,17 @@ class Signup extends React.Component {
                   value={this.state.user.location}
                   onChange={e => this.changeField(e, "location")}
                 />
-              </div>{" "}
+              </div>
               <div className="group">
                 <label> Profile Picture </label> <input type="file" />
-              </div>{" "}
+              </div>
               <button className="primary"> Signup </button>
-            </form>{" "}
+            </form>
             <p className="footer">
               Already have an account ? <a href=" "> Login </a>
             </p>
-          </div>{" "}
-        </div>{" "}
+          </div>
+        </div>
       </div>
     );
   }
