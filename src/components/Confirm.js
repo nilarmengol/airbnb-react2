@@ -67,11 +67,19 @@ class Confirm extends React.Component {
     });
   };
 
-	nights = (e) => {
-			moment(this.state.checkOut).diff(
+	nights = () => {
+			return moment(this.state.checkOut).diff(
 				this.state.checkIn,
 				"days"
 			)
+		}
+
+		price = () => {
+			return   this.state.price *
+					moment(this.state.checkOut).diff(
+						this.state.checkIn,
+						"days"
+					)
 		}
 
   render() {
@@ -119,18 +127,12 @@ class Confirm extends React.Component {
                   </select>
                 </div>
                 <div className="group">
-                  <label>
-                    Total:
-                    {this.nights()}
-                    nights
+                  <label>{
+                `Total: ${this.nights()} nights`}
                   </label>
                   <h2>
                     $
-                    {this.state.price *
-                      moment(this.state.checkOut).diff(
-                        this.state.checkIn,
-                        "days"
-                      )}
+                    {this.price()}
                   </h2>
                 </div>
                 <button className="primary">Confirm</button>

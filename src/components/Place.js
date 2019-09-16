@@ -94,6 +94,8 @@ class Place extends React.Component {
     });
   };
 
+
+
   componentWillMount() {
     console.log("this.props.location.name");
     axios

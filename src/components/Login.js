@@ -33,7 +33,7 @@ class Login extends React.Component {
                   <button class="primary">Login</button>
                 </form>
                 <p class="footer">
-                  Already have an account? <a href=" ">Login</a>
+                  Already have an account? <a href=" ">Sign up</a>
                 </p>
               </div>
             </div>
