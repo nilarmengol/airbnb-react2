@@ -22,7 +22,7 @@ class Signup extends React.Component {
     e.preventDefault();
     console.log("hello");
     axios
-      .post(process.env.REACT_APP_API, this.state.user)
+      .post(`${process.env.REACT_APP_API}/signup`, this.state.user)
       .then(res => {
         console.log("res", res);
         localStorage.setItem("token", res.data);
@@ -55,9 +55,10 @@ class Signup extends React.Component {
                 backgroundImage: `url('/logo-airbnb.png')`
               }}
             >
-              {" "}
-            </div>{" "}
-            <form onSubmit={this.signup}>
+
+            </div>
+            <form onSubmit={this.signup}
+						>
               <div className="group">
                 <label> Name </label>
 
@@ -97,10 +98,10 @@ class Signup extends React.Component {
               <div className="group">
                 <label> Profile Picture </label> <input type="file" />
               </div>{" "}
-              <button className="primary"> Signup </button>{" "}
+              <button className="primary"> Signup </button>
             </form>{" "}
             <p className="footer">
-              Already have an account ? <a href=" "> Login </a>{" "}
+              Already have an account ? <a href=" "> Login </a>
             </p>
           </div>{" "}
         </div>{" "}
