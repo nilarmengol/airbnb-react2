@@ -31,7 +31,7 @@ class Place extends React.Component {
       city: "",
       country: "",
       description: "",
-      guests: "",
+      guests: [],
       price: "",
       title: "",
       type: {
@@ -88,9 +88,9 @@ class Place extends React.Component {
       checkOut: date
     });
   };
-  handleChangeGuests = guests => {
+  handleChangeGuests = e => {
     this.setState({
-      guests: guests
+      guests: e.target.value
     });
   };
 
@@ -272,19 +272,19 @@ class Place extends React.Component {
                     </div>
                     <div className="group">
                       <label>Guests</label>
-                      <select>
-                        {[...Array(this.state.place.guests)].map((n, i) => (
-                          <option
-                            key={i}
-                            value={i + 1}
-                            selected={this.state.place.guests}
-                            on
-                            Change={this.handleChangeGuests}
-                          >
-                            {i + 1} guest
-                          </option>
-                        ))}
-                      </select>
+											<select>
+					              {[...Array(this.state.place.guests)].map((n, i) => (
+						                          <option
+						                            key={i}
+						                            value={i + 1}
+						                            selected={this.state.place.guests}
+						                            on
+						                            Change={this.handleChangeGuests}
+						                          >
+						                            {i + 1} guest
+						                          </option>
+						                        ))}
+					                      </select>
                     </div>
                     <div className="group">
                       <button

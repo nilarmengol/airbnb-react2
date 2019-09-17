@@ -1,6 +1,10 @@
 import React from "react";
 import Nav from "./Nav";
 import moment from "moment";
+import "../styles/Forms.css";
+
+import StripeForm from './StripeForm'
+import {Elements, StripeProvider} from 'react-stripe-elements'
 
 import Thumbnail from "./Thumbnail";
 import DatePicker from "react-datepicker";
@@ -32,7 +36,9 @@ class Confirm extends React.Component {
       reviews: ""
     },
     checkOut: "",
-    checkIn: ""
+    checkIn: "",
+		nights: 0,
+		total: 0
   };
 
   goBack = e => {
@@ -49,9 +55,9 @@ class Confirm extends React.Component {
     });
   }
 
-  handleChangeGuests = g => {
+  handleChangeGuests = guests => {
     this.setState({
-      guests: g
+      guests: guests
     });
   };
 
@@ -75,15 +81,18 @@ class Confirm extends React.Component {
 		}
 
 		price = () => {
-			return   this.state.price *
+			let price = this.state.price *
 					moment(this.state.checkOut).diff(
-						this.state.checkIn,
-						"days"
-					)
+						moment(this.state.checkIn)
+					).days()
+			this.setState({
+				total: price
+			})
 		}
 
   render() {
     return (
+			<>
       <div>
         <div>{this.state.guests}</div>
         <Nav />
@@ -113,12 +122,12 @@ class Confirm extends React.Component {
                 </div>
                 <div className="group">
                   <label>Guests</label>
-                  <select>
-                    {[...Array(this.state.place.guests)].map((n, i) => (
+									<select>
+                    {[...Array(4)].map((n, i) => (
                       <option
                         key={i}
                         value={i + 1}
-                        selected={this.state.place.guests}
+
                         onChange={this.handleChangeGuests}
                       >
                         {i + 1} guest
@@ -128,11 +137,11 @@ class Confirm extends React.Component {
                 </div>
                 <div className="group">
                   <label>{
-                `Total: ${this.nights()} nights`}
+                `Total: ${this.nights} nights`}
                   </label>
                   <h2>
                     $
-                    {this.price( )}
+                    {this.state.price}
                   </h2>
                 </div>
                 <button className="primary">Confirm</button>
@@ -143,6 +152,20 @@ class Confirm extends React.Component {
           </div>
         </div>
       </div>
+
+			<StripeProvider apiKey={process.env.REACT_APP_STRIPE_PK}>
+				<div className="stripe-form">
+			  <Elements>
+			    <StripeForm
+					amount={this.state.total}
+				/>
+			  </Elements>
+				</div>
+			</StripeProvider>
+
+</>
+
+
     );
   }
 }
