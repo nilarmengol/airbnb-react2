@@ -51,7 +51,8 @@ class Confirm extends React.Component {
       checkIn: this.props.location.checkIn,
       checkOut: this.props.location.checkOut,
       guests: this.props.location.guests,
-      price: this.props.location.price
+		 price:this.props.location.price,
+		 nights: this.state.nights
     });
   }
 
@@ -73,22 +74,24 @@ class Confirm extends React.Component {
     });
   };
 
-	nights = () => {
-			return moment(this.state.checkOut).diff(
+	countNights = () => {
+return moment(this.state.checkOut).diff(
 				this.state.checkIn,
 				"days"
 			)
+
 		}
 
 		price = () => {
-			let price = this.state.price *
+			return   this.state.price *
 					moment(this.state.checkOut).diff(
-						moment(this.state.checkIn)
-					).days()
-			this.setState({
-				total: price
-			})
+						this.state.checkIn,
+						"days"
+					)
+					
 		}
+
+
 
   render() {
     return (
@@ -137,11 +140,11 @@ class Confirm extends React.Component {
                 </div>
                 <div className="group">
                   <label>{
-                `Total: ${this.nights} nights`}
+                `Total: ${this.countNights()} nights`}
                   </label>
                   <h2>
                     $
-                    {this.state.price}
+                      {this.price()}
                   </h2>
                 </div>
                 <button className="primary">Confirm</button>
@@ -157,7 +160,8 @@ class Confirm extends React.Component {
 				<div className="stripe-form">
 			  <Elements>
 			    <StripeForm
-					amount={this.state.total}
+					amount={this.price()}
+					description={this.state.title}
 				/>
 			  </Elements>
 				</div>

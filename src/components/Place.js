@@ -277,10 +277,8 @@ class Place extends React.Component {
 						                          <option
 						                            key={i}
 						                            value={i + 1}
-						                            selected={this.state.place.guests}
-						                            on
-						                            Change={this.handleChangeGuests}
-						                          >
+						                            // selected={this.state.place.guests}
+						                            onChange={this.handleChangeGuests}>
 						                            {i + 1} guest
 						                          </option>
 						                        ))}

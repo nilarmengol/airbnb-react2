@@ -6,16 +6,17 @@ class StripeForm extends React.Component {
 
 	getToken = () =>  {
 		this.props.stripe.createToken({}).then(res => {
-			console.log('token', res.token.id)
 			axios.post(`${process.env.REACT_APP_API}/pay`, {
 				token: res.token.id,
 				amount: this.props.amount,
 				description: this.props.description
 			})
-			.then(res => {console.log(res)
+			.catch(err => {console.log(err)})
+		}).catch(err => {
+			console.log(err)
+			console.log('there is something wrong')
 		})
-})
-}
+	}
 
 
 
