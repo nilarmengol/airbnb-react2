@@ -88,7 +88,7 @@ return moment(this.state.checkOut).diff(
 						this.state.checkIn,
 						"days"
 					)
-					
+
 		}
 
 
