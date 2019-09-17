@@ -65,7 +65,7 @@ class Signup extends React.Component {
 
             </div>
             <form onSubmit={this.signup}
-						disabled={!this.state.user.name}
+				
 						>
               <div className="group">
                 <label> Name </label>

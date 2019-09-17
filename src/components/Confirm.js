@@ -132,7 +132,7 @@ class Confirm extends React.Component {
                   </label>
                   <h2>
                     $
-                    {this.price()}
+                    {this.price( )}
                   </h2>
                 </div>
                 <button className="primary">Confirm</button>
